@@ -461,12 +461,25 @@ const App: React.FC = () => {
           <div className="fixed bottom-0 left-0 right-0 p-10 pointer-events-none z-40 flex justify-center">
             {isProcessing && (
               <div className="mb-8 px-10 py-5 rounded-full shadow-2xl border flex items-center gap-5 animate-pulse pointer-events-auto" style={{ backgroundColor: theme.surface, borderColor: theme.border }}>
-                <span className="font-bold uppercase tracking-widest text-xs opacity-50">Gemini Processing...</span>
+                <span className="font-bold uppercase tracking-widest text-xs opacity-50">Echo is thinking...</span>
               </div>
             )}
             {!isProcessing && view === AppView.LIST && (
-              <button onClick={startRecording} className="h-24 w-24 rounded-full flex items-center justify-center transition-all shadow-2xl active:scale-90 pointer-events-auto" style={{ backgroundColor: theme.primary }}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
+              <button 
+                onClick={startRecording} 
+                className="h-24 w-24 rounded-full flex items-center justify-center transition-all shadow-2xl active:scale-90 pointer-events-auto" 
+                style={{ backgroundColor: theme.primary }}
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="h-10 w-10" 
+                  style={{ color: theme.id === 'blackWhite' ? '#000000' : '#FFFFFF' }}
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                </svg>
               </button>
             )}
           </div>
@@ -475,17 +488,38 @@ const App: React.FC = () => {
 
       {showSaveDialog && pendingMemoData && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 backdrop-blur-md bg-black/20">
-          <div className="w-full max-w-md rounded-[3rem] p-10 shadow-2xl border bg-white" style={{ borderColor: theme.border }}>
+          <div 
+            className="w-full max-w-md rounded-[3rem] p-10 shadow-2xl border" 
+            style={{ backgroundColor: theme.surface, borderColor: theme.border }}
+          >
             <h2 className="text-3xl font-black mb-2" style={{ color: theme.textPrimary }}>Processing Complete</h2>
-            <p className="text-sm mb-8 font-medium opacity-50">Set a title for this voice record.</p>
+            <p className="text-sm mb-8 font-medium opacity-50" style={{ color: theme.textSecondary }}>Set a title for this voice record.</p>
             <div className="space-y-6">
               <div>
-                <label className="text-[10px] font-black uppercase tracking-widest block mb-2 opacity-30">Title</label>
-                <input type="text" value={pendingMemoData.title} onChange={(e) => setPendingMemoData({...pendingMemoData, title: e.target.value})} className="w-full rounded-full px-6 py-4 font-bold focus:outline-none border" style={{ backgroundColor: theme.bg, borderColor: theme.border, color: theme.textPrimary }} />
+                <label className="text-[10px] font-black uppercase tracking-widest block mb-2 opacity-30" style={{ color: theme.textPrimary }}>Title</label>
+                <input 
+                  type="text" 
+                  value={pendingMemoData.title} 
+                  onChange={(e) => setPendingMemoData({...pendingMemoData, title: e.target.value})} 
+                  className="w-full rounded-full px-6 py-4 font-bold focus:outline-none border" 
+                  style={{ backgroundColor: theme.bg, borderColor: theme.border, color: theme.textPrimary }} 
+                />
               </div>
               <div className="flex flex-col gap-3">
-                <button onClick={handleFinalSave} className="w-full text-white font-black py-5 rounded-full shadow-xl text-lg" style={{ backgroundColor: theme.accent }}>{pendingMemoData.isAppendingToId ? "Add to Note" : "Save as New Memo"}</button>
-                <button onClick={() => { setShowSaveDialog(false); setPendingMemoData(null); }} className="w-full font-black py-5 rounded-full bg-stone-100 text-stone-500 uppercase tracking-widest text-sm">Discard</button>
+                <button 
+                  onClick={handleFinalSave} 
+                  className="w-full text-white font-black py-5 rounded-full shadow-xl text-lg transition-all active:scale-95" 
+                  style={{ backgroundColor: theme.id === 'blackWhite' ? '#000000' : theme.accent }}
+                >
+                  {pendingMemoData.isAppendingToId ? "Add to Note" : "Save as New Memo"}
+                </button>
+                <button 
+                  onClick={() => { setShowSaveDialog(false); setPendingMemoData(null); }} 
+                  className="w-full font-black py-5 rounded-full uppercase tracking-widest text-sm transition-all active:scale-95"
+                  style={{ backgroundColor: theme.bg, color: theme.textSecondary }}
+                >
+                  Discard
+                </button>
               </div>
             </div>
           </div>

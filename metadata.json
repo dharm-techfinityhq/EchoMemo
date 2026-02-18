@@ -1,0 +1,7 @@
+{
+  "name": "Copy of EchoMemo",
+  "description": "A sophisticated voice recorder and AI-powered memo application that transcribes, summarizes, and organizes your thoughts using Gemini.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

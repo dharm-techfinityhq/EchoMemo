@@ -407,11 +407,19 @@ const App: React.FC = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 19l-7-7 7-7" /></svg> Back
                   </button>
                   <div className="flex gap-4">
-                    <button onClick={startRecording} className="px-6 py-3 bg-red-50 text-red-600 rounded-full font-bold text-sm hover:bg-red-100 flex items-center gap-2 transition-all">
-                       <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div> Add Voice
+                    <button onClick={startRecording} className="w-12 h-12 sm:w-auto sm:px-6 sm:py-3 bg-red-50 text-red-600 rounded-full font-bold text-sm hover:bg-red-100 flex items-center justify-center sm:gap-2 transition-all">
+                       <div className="hidden sm:block w-2 h-2 bg-red-500 rounded-full animate-pulse"></div> 
+                       <span className="hidden sm:inline">Add Voice</span>
+                       <span className="sm:hidden text-2xl font-light leading-none">+</span>
                     </button>
-                    <button disabled={isProcessing || !selectedMemo?.content} onClick={handleRefineWithAI} className="px-6 py-3 text-white rounded-full font-bold text-sm shadow-lg active:scale-95 transition-all" style={{ backgroundColor: theme.accent }}>
-                      {isProcessing ? "Polishing..." : "AI Refine"}
+                    <button 
+                      disabled={isProcessing || !selectedMemo?.content} 
+                      onClick={handleRefineWithAI} 
+                      className="w-12 h-12 sm:w-auto sm:px-6 sm:py-3 text-white rounded-full font-bold text-sm shadow-lg active:scale-95 transition-all flex items-center justify-center" 
+                      style={{ backgroundColor: theme.accent }}
+                    >
+                      <span className="hidden sm:inline">{isProcessing ? "Polishing..." : "AI Refine"}</span>
+                      <span className="sm:hidden text-lg">{isProcessing ? "..." : "✨"}</span>
                     </button>
                     <button onClick={() => selectedMemo && deleteMemo(selectedMemo.id)} className="p-3 text-red-400 hover:text-red-600 transition-colors" title="Delete Note">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
